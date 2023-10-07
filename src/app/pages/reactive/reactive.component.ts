@@ -29,6 +29,16 @@ export class ReactiveComponent {
     return this.forma.get('correo')?.invalid && this.forma.get('correo')?.touched
   }
 
+  get distritoNoValido() {
+    return this.forma.get('direccion.distrito')?.invalid && this.forma.get('direccion.distrito')?.touched
+  }
+
+  get ciudadNoValido() {
+    return this.forma.get('direccion.ciudad')?.invalid && this.forma.get('direccion.ciudad')?.touched
+  }
+
+
+
   // Funciones de formulario reactive
   crearFomulario() {
     this.forma = this.fb.group({
@@ -51,8 +61,17 @@ export class ReactiveComponent {
   guardar() {
     console.log(this.forma);
     if (this.forma.invalid) {
+
+
+
       return Object.values(this.forma.controls).forEach(control => {
-        control.markAsTouched();
+
+        if (control instanceof FormGroup) {
+          Object.values(control.controls).forEach(control => control.markAsTouched());
+        } else {
+          control.markAsTouched();
+        }
+
       });
     }
   }
