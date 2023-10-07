@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ReactiveComponent {
 
+  // Variable para formulario html
   forma: FormGroup = new FormGroup({});
 
   constructor(private fb: FormBuilder) {
@@ -16,15 +17,15 @@ export class ReactiveComponent {
 
 
   // Validaciones Formularios reactive
-  get nombreNoValido(){
+  get nombreNoValido() {
     return this.forma.get('nombre')?.invalid && this.forma.get('nombre')?.touched
   }
 
-  get apellidoNoValido(){
+  get apellidoNoValido() {
     return this.forma.get('apellido')?.invalid && this.forma.get('apellido')?.touched
   }
 
-  get correoNoValido(){
+  get correoNoValido() {
     return this.forma.get('correo')?.invalid && this.forma.get('correo')?.touched
   }
 
@@ -39,20 +40,24 @@ export class ReactiveComponent {
           Validators.required,
           Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'),
         ]
-      ]
+      ],
+      direccion: this.fb.group({
+        distrito: ['', Validators.required,],
+        ciudad: ['', Validators.required,]
+      })
     });
   }
 
   guardar() {
     console.log(this.forma);
     if (this.forma.invalid) {
-      return Object.values(this.forma.controls).forEach(control =>{
+      return Object.values(this.forma.controls).forEach(control => {
         control.markAsTouched();
       });
     }
   }
 
 
-  
+
 
 }
