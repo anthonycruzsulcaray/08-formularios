@@ -61,19 +61,19 @@ export class ReactiveComponent {
   guardar() {
     console.log(this.forma);
     if (this.forma.invalid) {
-
-
-
       return Object.values(this.forma.controls).forEach(control => {
-
         if (control instanceof FormGroup) {
           Object.values(control.controls).forEach(control => control.markAsTouched());
         } else {
           control.markAsTouched();
         }
-
       });
     }
+
+    // Posteo de información
+    this.forma.reset();
+
+
   }
 
 
