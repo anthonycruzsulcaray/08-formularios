@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-reactive',
@@ -15,6 +15,11 @@ export class ReactiveComponent {
     this.crearFomulario();
   }
 
+  // Arreglo de elementos para formulario ---------------
+  get pasatiempos() {
+    return this.forma.get('pasatiempos') as FormArray;
+  }
+  // -----------------------------------------------------
 
   // Validaciones Formularios reactive
   get nombreNoValido() {
@@ -54,11 +59,13 @@ export class ReactiveComponent {
       direccion: this.fb.group({
         distrito: ['', Validators.required,],
         ciudad: ['', Validators.required,]
-      })
+      }),
+      pasatiempos: this.fb.array([]),
+
     });
   }
 
-  guardar() {
+  guardarFormGroup() {
     console.log(this.forma);
     if (this.forma.invalid) {
       return Object.values(this.forma.controls).forEach(control => {
@@ -69,13 +76,17 @@ export class ReactiveComponent {
         }
       });
     }
-
     // Posteo de información
     this.forma.reset();
-
-
   }
 
+  agregarPasatiempo() {
+    this.pasatiempos.push(this.fb.control('')); // Validators.required
+  }
+
+  borrarPasatiempo(index :number) {
+    this.pasatiempos.removeAt(index);
+  }
 
 
 

@@ -1,6 +1,6 @@
 <h4>Formularios <small> Template </small></h4>
 <hr />
-<form autocomplete="off" [formGroup]="forma" (ngSubmit)="guardar()">
+<form autocomplete="off" [formGroup]="forma" (ngSubmit)="guardarFormGroup()">
 
     <div class="form-group row">
         <label class="col-2 col-form-label">Nombre</label>
@@ -38,7 +38,7 @@
         </div>
     </div>
     <br />
-    
+
     <!-- 
         <div class="form-group row" formGroupName="direccion">
         <label class="col-2 col-form-label">Dirección</label>
@@ -61,14 +61,46 @@
         <label class="col-2 col-form-label">Dirección</label>
 
         <div class="form-row col">
-            <input type="text" class="form-control" placeholder="Distrito" formControlName="distrito" [class.is-invalid]="distritoNoValido">
+            <input type="text" class="form-control" placeholder="Distrito" formControlName="distrito"
+                [class.is-invalid]="distritoNoValido">
         </div>
         <div class="form-row col">
-            <input type="text" class="form-control" placeholder="Ciudad" formControlName="ciudad" [class.is-invalid]="ciudadNoValido">
+            <input type="text" class="form-control" placeholder="Ciudad" formControlName="ciudad"
+                [class.is-invalid]="ciudadNoValido">
         </div>
 
     </div>
     <br />
+
+
+    <div class="form-group row">
+        <div class="col">
+
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Id</th>
+                        <th>Pasatiempo</th>
+                        <th>Borrar</th>
+                    </tr>
+                </thead>
+
+                <tbody formArrayName="pasatiempos">
+                    <tr *ngFor="let control of pasatiempos.controls ; let i=index">
+                        <td>{{ i + 1}}</td>
+                        <td>
+                            <input type="text" class="form-control" [formControlName]="i">
+                        </td>
+                        <td>
+                            <button class="btn btn-danger" (click)="borrarPasatiempo(i)"> Borrar</button>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+            <button class="btn btn-primary mt-3 mb-5 btn-block" type="button" (click)="agregarPasatiempo()"> Agregar</button>
+        </div>
+    </div>
 
     <div class="form-group row">
         <label class="col-2 col-form-label">&nbsp;</label>
