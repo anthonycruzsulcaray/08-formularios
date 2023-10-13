@@ -7,8 +7,7 @@
         <div class="col-8">
             <input class="form-control" type="text" name="nombre" placeholder="Nombre" [ngModel]="usuario.nombre"
                 [class.is-invalid]="nombre.invalid && nombre.touched" required minlength="5" #nombre="ngModel" />
-            <small *ngIf="nombre.invalid && nombre.touched"> <!-- || (nombre.invalid && forma.submitted)  -->
-                class="form-text text-danger">Ingrese 5 letras </small>
+            <small *ngIf="nombre.invalid && nombre.touched" class="form-text text-danger">Ingrese 5 letras </small>
         </div>
     </div>
     <br />
